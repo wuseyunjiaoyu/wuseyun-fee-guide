@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>五色韵 · 收费指南</title>
+<style>
+  :root{
+    --paper:#faf8f5; --card:#fffdf9; --line:#e3dcd0; --ink:#1d1a16;
+    --ink2:#57524a; --red:#a8231c; --red-l:#c0261d; --gold:#b98d3a; --gold-l:#efe3c8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei','微软雅黑',sans-serif;
+    font-size:15px;line-height:1.65;padding-bottom:74px;
+    background-image:radial-gradient(circle at 50% 0%,#fff8ef 0%,var(--paper) 45%)}
+  .wrap{max-width:640px;margin:0 auto;padding:0 14px}
+
+  /* ---------- 头部 ---------- */
+  header{text-align:center;padding:24px 14px 16px}
+  .brand{display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:700;
+    color:var(--red);letter-spacing:1px}
+  .brand::before,.brand::after{content:'';width:22px;height:1px;background:var(--gold)}
+  h1{font-family:KaiTi,'楷体',STKaiti,serif;font-size:32px;font-weight:700;letter-spacing:3px;
+    margin:10px 0 6px;-webkit-text-stroke:.8px currentColor}
+  h1 em{color:var(--red);font-style:normal}
+  .sub{font-size:12.5px;color:var(--ink2);letter-spacing:.3px}
+
+  /* ---------- 通用区标题 ---------- */
+  .sec-title{display:flex;align-items:baseline;gap:8px;font-size:16px;font-weight:700;
+    margin:20px 0 10px;padding-left:10px;border-left:3px solid var(--red)}
+  .sec-title small{font-size:11.5px;font-weight:400;color:var(--ink2)}
+
+  /* ---------- 分类 tabs ---------- */
+  .tabs{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px;
+    scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;padding:8px 15px;font-size:13.5px;border:1px solid var(--line);
+    border-radius:20px;background:var(--card);color:var(--ink2);white-space:nowrap;
+    transition:.18s;font-weight:600}
+  .tab.active{background:var(--red);border-color:var(--red);color:#fff;
+    box-shadow:0 3px 10px rgba(168,35,28,.22)}
+
+  /* ---------- 价格卡片 ---------- */
+  .price-card{position:relative;background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:14px 15px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+  .price-card .badge{position:absolute;top:-9px;right:12px;background:var(--gold);
+    color:#fff;font-size:11px;padding:2px 9px;border-radius:10px;letter-spacing:.5px}
+  .pc-head{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+  .pc-name{font-size:15.5px;font-weight:700;flex:1;min-width:0}
+  .pc-name small{display:block;font-size:11.5px;font-weight:400;color:var(--ink2);margin-top:2px}
+  .pc-price{color:var(--red);white-space:nowrap;font-size:13px}
+  .pc-price b{font-size:26px;font-family:Georgia,'Times New Roman',serif;margin:0 1px}
+  .pc-price i{font-style:normal;font-size:12px;color:var(--ink2)}
+  .pc-desc{font-size:13px;color:var(--ink2);margin-top:9px;padding-top:9px;
+    border-top:1px dashed var(--line);line-height:1.75}
+  .pc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+  .pc-tag{font-size:11.5px;color:var(--gold);background:var(--gold-l);
+    border:1px solid #e6d7b0;padding:2px 8px;border-radius:5px}
+
+  /* ---------- 对话框 ---------- */
+  .chat-wrap{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    overflow:hidden;display:flex;flex-direction:column}
+  .chat-head{background:var(--ink);color:#fff;padding:11px 14px;font-size:13.5px;
+    display:flex;align-items:center;gap:8px;font-weight:600}
+  .chat-head .dot{width:8px;height:8px;border-radius:50%;background:#5dd97c;
+    box-shadow:0 0 0 3px rgba(93,217,124,.2)}
+  .chat-head small{margin-left:auto;font-size:11px;font-weight:400;color:#c9c4bb}
+  .chat-box{height:318px;overflow-y:auto;padding:14px 13px;background:#fdfcfa;
+    display:flex;flex-direction:column;gap:10px}
+  .msg{max-width:82%;padding:9px 12px;border-radius:12px;font-size:14px;line-height:1.65;
+    white-space:pre-wrap;word-break:break-word}
+  .msg.teacher{background:#fff;border:1px solid var(--line);border-top-left-radius:3px;
+    align-self:flex-start;color:var(--ink)}
+  .msg.parent{background:var(--red);color:#fff;border-top-right-radius:3px;align-self:flex-end}
+  .typing{align-self:flex-start;font-size:12.5px;color:var(--ink2);padding:6px 12px;
+    background:#fff;border:1px solid var(--line);border-radius:12px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;padding:0 13px 11px;background:#fdfcfa}
+  .chip{font-size:12.5px;color:var(--red);border:1px solid #e2bdb8;background:#fff;
+    padding:6px 12px;border-radius:15px;font-weight:600}
+  .chip:active{background:var(--red);color:#fff}
+  .chat-input{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);
+    background:#fff}
+  .chat-input input{flex:1;border:1px solid var(--line);border-radius:20px;
+    padding:9px 14px;font-size:14px;outline:none;background:#fdfcfa;
+    font-family:inherit;color:var(--ink)}
+  .chat-input input:focus{border-color:var(--red)}
+  .chat-input button{background:var(--red);color:#fff;border:none;border-radius:20px;
+    padding:0 20px;font-size:14px;font-weight:700;font-family:inherit}
+
+  /* ---------- 校区 / 页脚 ---------- */
+  .campus{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:13px 15px;font-size:13px;color:var(--ink2);line-height:1.9}
+  .campus b{color:var(--ink)}
+  footer{text-align:center;padding:20px 14px 14px;font-size:12px;color:var(--ink2);
+    line-height:1.9}
+  footer .fm{font-family:KaiTi,'楷体',serif;color:var(--gold);font-size:13px;
+    letter-spacing:2px}
+
+  /* ---------- 底部操作栏 ---------- */
+  .action-bar{position:fixed;left:0;right:0;bottom:0;z-index:20;
+    background:rgba(255,253,249,.97);border-top:1px solid var(--line);
+    padding:9px 14px calc(9px + env(safe-area-inset-bottom));
+    backdrop-filter:blur(8px)}
+  .action-bar .inner{max-width:640px;margin:0 auto;display:flex;gap:10px}
+  .ab-btn{flex:1;text-align:center;text-decoration:none;padding:12px 0;border-radius:24px;
+    font-size:15px;font-weight:700;letter-spacing:.5px}
+  .ab-btn.ghost{border:1.5px solid var(--red);color:var(--red);background:#fff}
+  .ab-btn.solid{background:var(--red);color:#fff;box-shadow:0 4px 12px rgba(168,35,28,.25)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">五色韵教育</div>
+  <h1>收费 <em>指南</em></h1>
+  <div class="sub">少儿书法（硬笔 · 软笔）＋ 课后托管 ｜ 适合 5—12 岁</div>
+</header>
+
+<div class="wrap">
+
+  <div class="sec-title">选一选，看价格 <small>点分类直接看</small></div>
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-cat="hard">硬笔书法</div>
+    <div class="tab" data-cat="soft">软笔书法</div>
+    <div class="tab" data-cat="baojian">课时包</div>
+    <div class="tab" data-cat="jidu">季度课</div>
+    <div class="tab" data-cat="tuoguan">课后托管</div>
+  </div>
+  <div id="cards"></div>
+
+  <div class="sec-title">有问必答 <small>输入问题，直接出答案</small></div>
+  <div class="chat-wrap">
+    <div class="chat-head"><span class="dot"></span>孙老师在线<small>通常秒回</small></div>
+    <div class="chat-box" id="chatBox"></div>
+    <div class="chips" id="chips"></div>
+    <div class="chat-input">
+      <input id="qInput" type="text" placeholder="想问什么？比如：怎么收费、能退吗…">
+      <button id="sendBtn">发送</button>
+    </div>
+  </div>
+
+  <div class="sec-title">两个校区 · 就近选</div>
+  <div class="campus">
+    <b>富力校区</b>：富力尚悦居 E 区 39 号楼 1 单元 2 楼<br>
+    <span style="font-size:12px">进 E 区大门右转走到头，美发店旁单元门电梯上 2 楼</span><br>
+    <b>燕保校区</b>：马驹桥燕保家园 6 号楼 2 楼<br>
+    <span style="font-size:12px">燕保居委会旁，养老驿站餐厅进来穿到小区里上 2 楼</span><br>
+    门口都可停车。到门口打个电话，老师下来接您。
+  </div>
+
+  <footer>
+    <div class="fm">—— 五色韵 · 写好每一个字 ——</div>
+    电话／微信：<b style="color:var(--red)">15911094173</b>（孙老师）<br>
+    <small>加微信发「试听」，即可约课</small>
+  </footer>
+</div>
+
+<div class="action-bar">
+  <div class="inner">
+    <a class="ab-btn ghost" href="tel:15911094173">📞 电话咨询</a>
+    <a class="ab-btn solid" href="tel:15911094173">✍️ 预约 19.9 元试听</a>
+  </div>
+</div>
+
+<script>
+/* ================= 报价数据 ================= */
+var PRICES = {
+  hard:[
+    {name:"试听课",sub:"45 分钟／节",price:"19.9",unit:"元／节",badge:"可抵扣",
+     desc:"电话预约试听；<b>试听当天报名，试听课费用直接抵扣</b>。",tags:["电话预约","当场报名可抵扣"]},
+    {name:"课时单价",sub:"软硬笔通用 · 每节 45 分钟",price:"150",unit:"元／节",badge:"通用",
+     desc:"每节课 45 分钟，每次连上 2 节（共 90 分钟），中间有课休；混班教学，随到随学。",
+     tags:["5—12 岁","混班教学","软硬笔通用"]},
+    {name:"硬笔 60 节课包",sub:"60 节＋赠 12 节",price:"4980",unit:"元",badge:"超值",
+     desc:"共 72 节课，<b>含赠课约 65 元／节</b>；赠送 12 节软笔课（可转为硬笔）；老生续费加赠 4 节。",
+     tags:["含赠课约 65 元/节","赠 12 节软笔课","可转硬笔"]}
+  ],
+  soft:[
+    {name:"软笔课时",sub:"软硬笔通用 · 每节 45 分钟",price:"150",unit:"元／节",badge:"单报",
+     desc:"软笔练气韵，可与硬笔搭配学习。上课时段：每周六 14:00—15:30 ｜ 每周日 10:30—12:00",
+     tags:["周六下午","周日上午"]},
+    {name:"软笔 60 节课包",sub:"60 节课",price:"4500",unit:"元",badge:"最划算",
+     desc:"<b>约合 75 元／节</b>，长期学习最省；每节课 45 分钟，每次连上 2 课时（共 90 分钟）。"+
+          "上课时段：每周六 14:00—15:30 ｜ 每周日 10:30—12:00",
+     tags:["约 75 元/节","周六/周日上课"]},
+    {name:"赠课福利",sub:"老带新 / 续费",price:"4",unit:"节软笔课",badge:"免费",
+     desc:"老带新赠送软笔课 4 节；老生续费同样赠送软笔课 4 节。",tags:["老带新","老生续费"]}
+  ],
+  baojian:[
+    {name:"硬笔 60 节课包",sub:"60 节＋赠 12 节 = 72 节",price:"4980",unit:"元",badge:"最受欢迎",
+     desc:"含赠课约 <b>65 元／节</b>；赠送 12 节软笔课，可转为硬笔；老生续费再加赠 4 节课。有效期一年，一年内上完即可。",
+     tags:["共 72 节","约 65 元/节","赠 12 节软笔","有效期一年"]},
+    {name:"软笔 60 节课包",sub:"60 节课",price:"4500",unit:"元",badge:"长期最省",
+     desc:"<b>约合 75 元／节</b>；适合打算长期练软笔的孩子。有效期一年，一年内上完即可。",
+     tags:["约 75 元/节","有效期一年"]},
+    {name:"课时包适合谁",sub:"每周 2 次最合适",price:"灵活",unit:"不浪费",
+     desc:"每周能来 2 次的话，课时包最灵活：按次消耗，不用赶季度进度，有事来不了也不心疼。",
+     tags:["每周 2 次","灵活不浪费"]}
+  ],
+  jidu:[
+    {name:"季度课",sub:"24 课时",price:"3600",unit:"元",badge:"推荐",
+     desc:"按 150 元／节 × 24 课时计。<b>每周能来 3 次以上，这个最划算</b>；团购更省（见下）。",
+     tags:["24 课时","每周 3 次最理想","2—5 人团报更省"]},
+    {name:"团报优惠",sub:"2—5 人成团",price:"-200~500",unit:"元／人",badge:"团购",
+     desc:"2—5 人团报季度课，<b>每人减 200—500 元</b>（按成团人数定）。可以约上同学、邻居一起报。",
+     tags:["每人减 200—500 元","按人数定"]},
+    {name:"请假规则",sub:"仅季度课适用",price:"1",unit:"次机会",badge:"重要",
+     desc:"季度课有一次 <b>7 日以上</b>的请假机会，课时向后顺延；顺延超两个月可按 24 课时退费；"+
+          "7 日内（不含 7 日）不补课、不顺延、不请假。公休为周一，法定节假日不后延。",
+     tags:["7 日以上请假","顺延","课时包不受此限"]}
+  ],
+  tuoguan:[
+    {name:"午托",sub:"12:00—13:30",price:"550",unit:"元",badge:"",
+     desc:"中午时段托管，含接送衔接（以校区安排为准）。",tags:["12:00—13:30"]},
+    {name:"晚托 · 新生",sub:"15:30—19:30",price:"1800",unit:"元",badge:"",
+     desc:"放学后到 19:30，孩子在这里写作业、练字，老师全程看护答疑。",tags:["15:30—19:30","新生价"]},
+    {name:"晚托 · 老生",sub:"15:30—19:30",price:"1500",unit:"元",badge:"老生专享",
+     desc:"同上的晚托时段，老生续托专享价，比新生省 300 元。",tags:["15:30—19:30","老生专享"]}
+  ]
+};
+
+/* ================= 问答库 ================= */
+var QA = [
+  {k:["地址","在哪","校区","怎么走","路线","停车","位置"],q:"校区在哪里？怎么走？",
+   a:"两个校区就近选：\n📍 富力校区：富力尚悦居E区39号楼1单元2楼（进E区大门右转走到头，美发店旁单元门电梯上2楼）\n📍 燕保校区：马驹桥燕保家园6号楼2楼（燕保居委会旁，养老驿站餐厅进入穿到小区里）\n门口都可停车，有车位。到门口打电话，老师下来接您。"},
+  {k:["电话","联系","微信","号码"],q:"联系电话是多少？",
+   a:"电话／微信：15911094173（孙老师），加微信发「试听」即可约课。"},
+  {k:["教什么","课程","学什么","内容"],q:"你们教什么？",
+   a:"少儿书法（硬笔＋软笔）和课后托管，适合5—12岁孩子。硬笔打基础、软笔练气韵，两门可以一起上。"},
+  {k:["时间","几点","上课","安排","周末","周末班"],q:"上课时间是怎么安排的？",
+   a:"两校区统一执行：\n▪ 周二—周五：17:00—18:30；18:40—20:10\n▪ 周六、日：9:00—10:30；10:40—12:10；14:00—15:30；15:40—17:10\n▪ 周一公休\n每节课45分钟，每次连上2节，中间有课休。"},
+  {k:["多长","时长","45","90","一节课"],q:"一节课多长时间？",
+   a:"每节课45分钟，每次两节课连续上（共90分钟），中间有课休。"},
+  {k:["多少人","班额","几个孩子","小班"],q:"一个班多少人？",
+   a:"教室设12个座位，满班较少，通常5—8人，老师能照顾到每个孩子。"},
+  {k:["托管","午托","晚托","看护"],q:"托管是怎么安排的？怎么收费？",
+   a:"▪ 午托：12:00—13:30，550元\n▪ 晚托：15:30—19:30，新生1800元、老生1500元\n孩子可以写作业、练字，老师全程看护。"},
+  {k:["软笔多少钱","软笔收费","软笔价格","软笔时间","软笔什么时候","毛笔","软笔"],q:"软笔书法怎么收费？什么时间上课？",
+   a:"🖌 软笔书法：\n▪ 150元／节（每节45分钟，每次连上2课时，共90分钟）\n▪ 60节课包 4500元，约合75元／节，长期学最划算\n▪ 上课时间：每周六 14:00—15:30；每周日 10:30—12:00"},
+  {k:["硬笔多少钱","硬笔收费","硬笔价格","硬笔"],q:"硬笔书法怎么收费？",
+   a:"🖋 硬笔书法：\n▪ 150元／节（每节45分钟，每次连上2节）\n▪ 60节课包 4980元（共72节，含赠课约65元/节）\n▪ 赠12节软笔课，可转成硬笔课；老生续费再加赠4节"},
+  {k:["课时包","60节","4980","4500","包"],q:"课时包怎么收费？",
+   a:"课时包两种：\n▪ 硬笔 60 节：4980元（共72节，含赠课约65元/节，赠12节软笔课可转硬笔）\n▪ 软笔 60 节：4500元（约75元/节）\n有效期均为一年，一年内上完即可。"},
+  {k:["季度","季度课","3600","24课时"],q:"季度课怎么收费？",
+   a:"季度课 24 课时 3600 元（按150元/节计）。\n每周能来 3 次以上最划算；2—5 人团报，每人再减 200—500 元。"},
+  {k:["孩子课外课程比较多","没时间","课程多","课外班","一周几次","每周几次","频率","选哪种","报哪个","怎么选"],q:"孩子课外课程多，没时间上季度课怎么办？",
+   a:"季度课最划算是一方面，最关键的是：练字是肌肉记忆训练——\n▪ 每周能来 3 次：最理想，完全适用季度课（24 课时 3600 元，团报每人再减 200—500 元）\n▪ 每周 2 次：建议报课时包（硬笔 60 节 4980 元／软笔 60 节 4500 元）\n▪ 每周 1 次：效果会打折扣，建议多思考一下再报名"},
+  {k:["收费","多少钱","价格","费用","单价","报价"],q:"怎么收费？",
+   a:"▪ 课时单价：150元／节（软硬笔通用），每节45分钟，每次连上2节\n▪ 季度课：24课时 3600元（推荐，团报更省）\n▪ 硬笔60节课包：4980元（共72节，含赠课约65元/节）\n▪ 软笔60节课包：4500元（约75元/节）\n▪ 托管：午托550元；晚托新生1800元、老生1500元\n▪ 试听课：19.9元，当时报名可抵扣"},
+  {k:["别的费用","物料","教材","材料","附加","包含","赠送"],q:"除了课时费还有别的费用吗？",
+   a:"没有了。费用里已包含赠送的教材费200元、文具材料费200元，报名即送，不另外收取。"},
+  {k:["优惠","活动","便宜","团报","团购","老带新","转介绍"],q:"有优惠吗？",
+   a:"① 季度课团购：2—5人团，每人减200—500元（按人数定）\n② 老带新：赠软笔课4节\n③ 老生续费：赠软笔课4节"},
+  {k:["试听","体验","先学","试课"],q:"能不能先试听一节？",
+   a:"可以！试听课19.9元／节（45分钟），电话预约即可；试听当天报名，费用直接抵扣。"},
+  {k:["交费","付款","转账","收据","怎么交"],q:"怎么交费？",
+   a:"微信／支付宝／转账到指定账户均可，开收据发给家长，家长签字后回传。"},
+  {k:["退","退费","退钱","不上了"],q:"中途不上了能退吗？",
+   a:"可以退。已上课时按原价 150 元／节扣费（不按课包优惠均价，如 65 元／节、75 元／节），赠送课时不折现；另外扣除教材费 200 元、文具材料费 200 元（即报名赠送的 400 元）。"},
+  {k:["季度退","季度课退"],q:"季度课退费怎么算？",
+   a:"季度课因特殊原因需要退费的，按24课时计算。"},
+  {k:["保留","有效期","存档","过期"],q:"课时能保留多久？",
+   a:"课程付费后，学员档案保存1个自然年度，超期不再存档，请安排好孩子的上课时间。"},
+  {k:["请假","缺课","病假","补课","调课"],q:"请假／缺课怎么办？",
+   a:"「不补课」的请假规则仅限季度课程：\n▪ 季度课有一次7日以上的请假机会，课时向后顺延；顺延超两个月可按24课时退费；7日内（不含7日）不补课、不顺延、不请假\n▪ 课时包不受此限，课程有效期为一年，有效期内上完即可"},
+  {k:["课时包有效期","有效期多久","课时包多久","多久过期","上不完怎么办","一年内"],q:"课时包有效期多久？",
+   a:"课时包课程有效期为一年，一年内上完即可。"},
+  {k:["季度课","延时","延期","作废","节假日","公休"],q:"季度课可以请假延时吗？",
+   a:"季度课以时间为期限：公休为周一，法定节假日不后延，其余非法定假日均向后延期。\n▪ 可以请假（七日以上）一次\n▪ 当季度有效期内未上满24节课，超时也可补齐，但不超过一年\n▪ 一年后课时作废"},
+  {k:["坐不住","专注","没基础","零基础","能学吗"],q:"孩子坐不住／没基础能学吗？",
+   a:"完全能。这个年纪的孩子都坐不住，我们就是一节一节课把专注力练出来的。先从坐姿、握笔开始，孩子有进步他自己就愿意来了。"},
+  {k:["陪","陪着","陪同","家长"],q:"家长要在旁边陪着吗？",
+   a:"不用陪，您在楼下等或先回去都行，下课老师会反馈孩子当天的情况。"},
+  {k:["作业","homework"],q:"课后有作业吗？",
+   a:"没有作业，课上练够、练透。"},
+  {k:["老师","资质","学历","谁教"],q:"老师什么资质？",
+   a:"老师为本科书法专业硕士，教学经验均在5年以上。"},
+  {k:["进步","效果","反馈","对比"],q:"能看到孩子的进步吗？",
+   a:"会。定期给孩子做学习总结反馈卡，书写前后对比、课堂表现都会写清楚发给您。"},
+  {k:["过敏","特殊","身体","注意"],q:"孩子有过敏／特殊情况怎么办？",
+   a:"告诉我们后会马上转达任课老师，上课特别留意；方便的话把具体注意事项发我一下。"},
+  {k:["报名","现在","名额","还能报"],q:"现在还能报名吗？",
+   a:"随时可以报名，书法课程为混班教学，随到随学。建议先电话预约试听：15911094173。"},
+  {k:["一次","每周","次数","作业多"],q:"孩子课程多，每周只能练一次行吗？",
+   a:"练字需要进行肌肉记忆训练，练得太少效果不理想，建议每周至少两次；可以考虑报课时包，不用季度课。"}
+];
+
+/* ================= 渲染价格卡 ================= */
+var tabsEl = document.getElementById("tabs");
+var cardsEl = document.getElementById("cards");
+function renderCards(cat){
+  var list = PRICES[cat] || [], html = "";
+  for(var i=0;i<list.length;i++){
+    var p = list[i], tags = "";
+    for(var j=0;j<p.tags.length;j++) tags += '<span class="pc-tag">'+p.tags[j]+'</span>';
+    html += '<div class="price-card">'
+      + (p.badge?'<div class="badge">'+p.badge+'</div>':'')
+      + '<div class="pc-head"><div class="pc-name">'+p.name+'<small>'+p.sub+'</small></div>'
+      + '<div class="pc-price">¥<b>'+p.price+'</b><i>'+p.unit+'</i></div></div>'
+      + '<div class="pc-desc">'+p.desc+'</div>'
+      + (tags?'<div class="pc-tags">'+tags+'</div>':'')
+      + '</div>';
+  }
+  cardsEl.innerHTML = html;
+}
+renderCards("hard");
+tabsEl.addEventListener("click", function(e){
+  var t = e.target;
+  while(t && t !== tabsEl && !(t.className && t.className.indexOf("tab") > -1)) t = t.parentNode;
+  if(!t || t === tabsEl) return;
+  var all = tabsEl.querySelectorAll(".tab");
+  for(var i=0;i<all.length;i++) all[i].classList.remove("active");
+  t.classList.add("active");
+  renderCards(t.getAttribute("data-cat"));
+  t.scrollIntoView({behavior:"smooth", block:"nearest", inline:"center"});
+});
+
+/* ================= 对话框 ================= */
+var chatBox = document.getElementById("chatBox");
+var chipsEl = document.getElementById("chips");
+var qInput  = document.getElementById("qInput");
+var SUGGEST = ["怎么收费？","硬笔多少钱？","课时包多少钱？","托管怎么收费？","上课时间？","能退吗？","可以试听吗？","在哪？"];
+var QUIZ_Q = "对了，方便说下孩子每周大概能来几次练字吗？我帮您推荐最合适的方案～";
+var QUIZ_KEYS = ["每周 3 次以上","每周 2 次","每周 1 次","时间不确定"];
+var QUIZ = {
+  "每周 3 次以上":"季度课最划算是一方面，最关键的是：练字是肌肉记忆训练，每周能来 3 次最理想，完全适用季度课（24 课时 3600 元，2—5 人团报每人再减 200—500 元）。",
+  "每周 2 次":"每周两次的话推荐课时包：硬笔 60 节课包 4980 元（含赠课约 65 元/节，赠 12 节软笔课可转硬笔）或软笔 60 节课包 4500 元，灵活不浪费。",
+  "每周 1 次":"练字是肌肉记忆训练，每周一次效果会打折扣，建议您多思考一下再报名。可以先约一节 19.9 元试听课，看看孩子的状态～",
+  "时间不确定":"没关系，先约一节 19.9 元试听课体验一下：电话／微信 15911094173。体验后我们再帮您规划合适的频次和课程～"
+};
+
+function bubble(cls, text){
+  var d = document.createElement("div");
+  d.className = "msg " + cls;
+  d.textContent = text;
+  chatBox.appendChild(d);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return d;
+}
+function teacherReply(answer, delay){
+  var t = document.createElement("div");
+  t.className = "typing"; t.textContent = "孙老师正在输入…";
+  chatBox.appendChild(t); chatBox.scrollTop = chatBox.scrollHeight;
+  setTimeout(function(){ t.remove(); bubble("teacher", answer); }, delay || 450);
+}
+function setChips(items, onClick){
+  chipsEl.innerHTML = "";
+  for(var i=0;i<items.length;i++){
+    (function(s){
+      var c = document.createElement("div");
+      c.className = "chip"; c.textContent = s;
+      c.onclick = function(){ onClick(s); };
+      chipsEl.appendChild(c);
+    })(items[i]);
+  }
+}
+function defaultChips(){
+  setChips(SUGGEST, function(s){ bubble("parent", s); answer(s); });
+}
+function answer(userText){
+  var u = userText.replace(/[\s？?！!。．，,·~～]/g,"");
+  var best = null, bestScore = 0;
+  for(var i=0;i<QA.length;i++){
+    var item = QA[i], s = 0;
+    for(var j=0;j<item.k.length;j++){
+      var kw = item.k[j].replace(/\s/g,"");
+      if(kw && u.indexOf(kw) > -1) s += kw.length + 2;
+    }
+    var q = item.q.replace(/[？?]/g,"");
+    if(u === q) s += 100;
+    else if(q.indexOf(u) > -1 || u.indexOf(q) > -1) s += 10;
+    if(s > bestScore){ bestScore = s; best = item; }
+  }
+  if(best && bestScore >= 3){ teacherReply(best.a); }
+  else{
+    teacherReply("这个问题我记下啦，稍后详细回复您～\n也可以直接致电：15911094173（孙老师）");
+  }
+}
+function send(){
+  var v = qInput.value.replace(/^\s+|\s+$/g,"");
+  if(!v) return;
+  bubble("parent", v);
+  qInput.value = "";
+  answer(v);
+}
+defaultChips();
+document.getElementById("sendBtn").onclick = send;
+qInput.addEventListener("keydown", function(e){ if(e.key === "Enter") send(); });
+
+/* 开场 */
+bubble("parent","您好，想了解一下书法课");
+teacherReply("您好，我是五色韵的孙老师 🖋\n我们做少儿书法（硬笔＋软笔）和课后托管，适合5—12岁孩子。\n点下面的快捷问题，或直接输入您想问的，马上回复您～", 700);
+
+/* 销售钩子：停留 20 秒后主动追问频次 */
+var quizShown = false;
+setTimeout(function(){
+  if(quizShown) return;
+  quizShown = true;
+  teacherReply(QUIZ_Q, 500);
+  setTimeout(function(){
+    setChips(QUIZ_KEYS, function(s){
+      bubble("parent", s);
+      teacherReply(QUIZ[s]);
+      setTimeout(defaultChips, 600);
+    });
+  }, 650);
+}, 20000);
+</script>
+</body>
+</html>
